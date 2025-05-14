@@ -8,9 +8,10 @@ class AboutController extends Controller_Abstract
     {
         $content = 'Yet another YAF framework';
 
-        Console::log($content, 'green', true);
-        Console::log($content, 'yellow', true);
-        Console::log($content, 'red', true);
-        Console::bell();
+        $this->getView()->assign('content', $content);
+
+        echo $content . PHP_EOL;
+
+        return false;
     }
 }

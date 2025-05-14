@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use Environment;
 use App\Infrastructure\ProviderAbstract;
+use App\Services\Environment;
 use Illuminate\Database\Capsule\Manager as EloquentCapsule;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 
@@ -11,7 +11,7 @@ final class DatabaseProvider extends ProviderAbstract
 {
     public function boot(): self
     {
-        if (!Environment::isProduction()) {
+        if (Environment::isNotProduction()) {
             EloquentModel::preventLazyLoading();
         }
 

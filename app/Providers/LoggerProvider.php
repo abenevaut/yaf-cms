@@ -8,7 +8,7 @@ use Monolog\Handler\RotatingFileHandler;
 use Monolog\Level;
 use Monolog\Logger;
 
-final class LoggerProvider extends ProviderAbstract
+final class  LoggerProvider extends ProviderAbstract
 {
     public function boot(): self
     {
@@ -16,22 +16,23 @@ final class LoggerProvider extends ProviderAbstract
 
         $this->singleton(Logger::class, static function () use ($config) {
             $hit = uniqid();
+            $timezone = $config->get('application')->get('timezone');
+            $logger = new Logger('default');
+            $handler = new RotatingFileHandler(
+                $config->get('logger')->get('directory'),
+                $config->get('logger')->get('maxFiles'),
+                Level::fromName($config->get('logger')->get('level'))
+            );
+            $formatter = new LineFormatter(
+                "[%datetime%] %channel%.%level_name%: %message% %context% %extra%\n",
+                'Y-m-d H:i:s'
+            );
 
-            return (new Logger('default'))
-                ->setTimezone(
-                    new \DateTimeZone($config->get('application')->get('timezone'))
-                )
-                ->pushHandler(
-                    (new RotatingFileHandler(
-                        $config->get('logger')->get('directory'),
-                        $config->get('logger')->get('maxFiles'),
-                        Level::fromName($config->get('logger')->get('level'))
-                    ))
-                        ->setFormatter(new LineFormatter(
-                            "[%datetime%] %channel%.%level_name%: %message% %context% %extra%\n",
-                            'Y-m-d H:i:s'
-                        ))
-                )
+            $handler->setFormatter($formatter);
+
+            return $logger
+                ->setTimezone(new \DateTimeZone($timezone))
+                ->pushHandler($handler)
                 ->pushProcessor(function ($record) use ($hit) {
                     $record->extra['hit'] = $hit;
 

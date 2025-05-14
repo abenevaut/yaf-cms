@@ -2,19 +2,19 @@ name: test
 
 on:
   push:
-    branches: [ php81 ]
+    branches: [ php83 ]
   pull_request:
-    branches: [ php81 ]
+    branches: [ php83 ]
 
 env:
-  php_version: 81
+  php_version: 83
 
 jobs:
 
   test:
     runs-on: ubuntu-latest
     container:
-      image: abenevaut/yafarel-ci:latest-php81
+      image: abenevaut/yafarel-ci:latest-php83
       volumes:
         - ${{ github.workspace }}/vendor:/composer/vendor
     concurrency:

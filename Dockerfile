@@ -1,12 +1,18 @@
-# This is a sample Dockerfile for a YAF production application
 #
-# docker build . --tag abenevaut/vapor-nginx:test
-# docker run -p 8080:8080 -v .:/var/task abenevaut/vapor-nginx:test
+# docker build . --tag abenevaut/yaf-cms:latest
+# docker run -p 8080:8080 -v .:/var/task abenevaut/yaf-cms:latest
 #
 
 FROM ghcr.io/abenevaut/vapor-nginx:php83
 
-LABEL maintainer="<Your name & email>"
+LABEL maintainer="Antoine Benevaut <me@abenevaut.dev>"
+LABEL org.opencontainers.image.source=https://github.com/abenevaut/yaf-cms
+LABEL org.opencontainers.image.path="Dockerfile"
+LABEL org.opencontainers.image.title="yaf-cms"
+LABEL org.opencontainers.image.description="This is an environment to develop yaf-cms."
+LABEL org.opencontainers.image.authors="Antoine Benevaut <me@abenevaut.dev>"
+LABEL org.opencontainers.image.licenses="MIT"
+LABEL org.opencontainers.image.documentation="https://github.com/abenevaut/yaf-cms/README.md"
 
 RUN pecl channel-update pecl.php.net \
     && pecl install yaf \
@@ -14,5 +20,11 @@ RUN pecl channel-update pecl.php.net \
 
 RUN docker-php-ext-enable yaf
 
+ARG COMPOSER_HASH
+RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
+    && php -r "if (hash_file('sha384', 'composer-setup.php') === '${COMPOSER_HASH}') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" \
+    && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
+    && php -r "unlink('composer-setup.php');"
+
 COPY --chown=nobody rootfs/ /
-COPY rootfs/usr/local/etc/php/conf.d/docker-php-ext-yaf.ini.testing /usr/local/etc/php/conf.d/docker-php-ext-yaf.ini
+RUN mv /usr/local/etc/php/conf.d/docker-php-ext-yaf.ini.testing /usr/local/etc/php/conf.d/docker-php-ext-yaf.ini

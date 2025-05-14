@@ -4,8 +4,8 @@ namespace Tests;
 
 use Yaf\Application;
 use Yaf\Registry;
-use Yaf\Request\Http;
-use Yaf\Response_Abstract as HttpResponse;
+use Yaf\Request\Http as HttpRequest;
+use Yaf\Response\Http as HttpResponse;
 use Yaf\View\Simple as ViewSimple;
 
 trait YafUnit
@@ -22,7 +22,7 @@ trait YafUnit
 
     public function get(string $uri, array $params = []): HttpResponse
     {
-        $request = new Http($uri);
+        $request = new HttpRequest($uri);
         $request->method = 'get';
 
         $_GET = array_merge($_GET, $params);
@@ -30,6 +30,7 @@ trait YafUnit
         return $this
             ->getApplication()
             ->getDispatcher()
+            ->setResponse(new HttpResponse())
             ->dispatch($request);
     }
 
@@ -50,7 +51,7 @@ trait YafUnit
 
     private function dispatchPost(string $method, string $uri, array $params = []): HttpResponse
     {
-        $request = new Http($uri);
+        $request = new HttpRequest($uri);
         $request->method = $method;
 
         // Force the use of router fallback during testing
@@ -60,6 +61,7 @@ trait YafUnit
         return $this
             ->getApplication()
             ->getDispatcher()
+            ->setResponse(new HttpResponse())
             ->dispatch($request);
     }
 

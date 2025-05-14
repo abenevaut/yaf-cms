@@ -53,11 +53,10 @@ Wink to @laravel
 
 ### Commands list
 ```
-php artisan migrate
-php artisan db:seed
+php artisan about
 ```
 
 ## Testing
 ```
-vendor/bin/phpunit
+XDEBUG_MODE=coverage vendor/bin/phpunit
 ```
