@@ -2,9 +2,9 @@ name: test
 
 on:
   push:
-    branches: [ php83 ]
+    branches: [ main ]
   pull_request:
-    branches: [ php83 ]
+    branches: [ main ]
 
 env:
   php_version: 83
