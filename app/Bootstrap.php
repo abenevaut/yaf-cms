@@ -1,19 +1,10 @@
 <?php
 
-use App\Providers\DatabaseProvider;
-use App\Providers\LoggerProvider;
-use App\Providers\RouterProvider;
-use App\Providers\SessionProvider;
+use App\Services\Environment;
 use Yaf\Bootstrap_Abstract;
 use Yaf\Dispatcher;
 use Yaf\Loader;
 
-/**
- * Class Bootstrap
- *
- * \Yaf\Application::bootstrap() will call all _init* methods defined in Bootstrap top to down.
- * Be free to add your own _init* methods.
- */
 final class Bootstrap extends Bootstrap_Abstract
 {
     public function _initAutoload()
@@ -23,13 +14,13 @@ final class Bootstrap extends Bootstrap_Abstract
 
     public function _initTimezone(Dispatcher $dispatcher)
     {
-        date_default_timezone_set(
-            $dispatcher
-                ->getApplication()
-                ->getConfig()
-                ->get('application')
-                ->get('timezone')
-        );
+        $timezone = $dispatcher
+            ->getApplication()
+            ->getConfig()
+            ->get('application')
+            ->get('timezone');
+
+        date_default_timezone_set($timezone);
     }
 
     public function _initServices(Dispatcher $dispatcher)
@@ -40,7 +31,7 @@ final class Bootstrap extends Bootstrap_Abstract
         }
     }
 
-    public function _initPlugins(Dispatcher $dispatcher)
+    public function _initMiddlewares(Dispatcher $dispatcher)
     {
         $middlewares = include(__DIR__ . '/middlewares.php');
         foreach ($middlewares as $middleware) {

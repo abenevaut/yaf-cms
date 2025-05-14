@@ -2,6 +2,7 @@
 
 use App\Infrastructure\ControllerAbstract;
 use App\Exceptions\Http\HttpException;
+use App\Services\Environment;
 use NunoMaduro\Collision\Handler as ConsoleHandler;
 use Whoops\{
     Run,
@@ -17,7 +18,7 @@ class ErrorController extends ControllerAbstract
             || !$this->getRequest()->isXmlHttpRequest();
 
         $handler = $this;
-        if (true && (!$isViewableException || !Environment::isProduction())) {
+        if (!$isViewableException || !Environment::isProduction()) {
             $handler = $this->getExceptionHandler();
         }
 
@@ -50,6 +51,7 @@ class ErrorController extends ControllerAbstract
         $exceptionHandler = new Run();
         $exceptionHandler->allowQuit(false);
         $exceptionHandler->writeToOutput(false);
+
         return $exceptionHandler->pushHandler(new $viewableHandler());
     }
 }

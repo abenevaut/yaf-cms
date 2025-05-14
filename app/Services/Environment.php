@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Services;
+
 use Yaf\Application;
 
 final class Environment
