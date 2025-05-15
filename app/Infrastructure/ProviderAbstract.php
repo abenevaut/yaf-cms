@@ -11,6 +11,11 @@ abstract class ProviderAbstract
 
     abstract public function boot(): self;
 
+    protected function getApplicationConfig(): \Yaf\Config\Ini
+    {
+        return $this->dispatcher->getApplication()->getConfig();
+    }
+
     /**
      * @throws ServiceAlreadyRegisteredException
      */

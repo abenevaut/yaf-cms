@@ -15,7 +15,7 @@ final class DatabaseProvider extends ProviderAbstract
             EloquentModel::preventLazyLoading();
         }
 
-        $config = $this->dispatcher->getApplication()->getConfig();
+        $config = $this->getApplicationConfig();
 
         $this->singleton(EloquentCapsule::class, static function () use ($config) {
             $capsule = new EloquentCapsule();

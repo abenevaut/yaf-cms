@@ -9,7 +9,8 @@ final class SessionProvider extends ProviderAbstract
 {
     public function boot(): self
     {
-        $config = $this->dispatcher->getApplication()->getConfig();
+        $config = $this->getApplicationConfig();
+
         $this->singleton(SessionService::class, static function () use ($config) {
             return new SessionService(
                 $config->get('session')->get('name'),
