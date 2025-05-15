@@ -1,8 +1,8 @@
 <?php
 
-use Yaf\Controller_Abstract;
+use App\Infrastructure\CommandControllerAbstract;
 
-class AboutController extends Controller_Abstract
+class AboutController extends CommandControllerAbstract
 {
     public function handleAction()
     {
@@ -10,8 +10,8 @@ class AboutController extends Controller_Abstract
 
         $this->getView()->assign('content', $content);
 
-        echo $content . PHP_EOL;
+        $this->write($content);
 
-        return false;
+        return $this->success();
     }
 }

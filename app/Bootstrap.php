@@ -1,6 +1,5 @@
 <?php
 
-use App\Services\Environment;
 use Yaf\Bootstrap_Abstract;
 use Yaf\Dispatcher;
 use Yaf\Loader;

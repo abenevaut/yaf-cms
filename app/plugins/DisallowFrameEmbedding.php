@@ -7,7 +7,8 @@ use Yaf\Response\Http;
 
 class DisallowFrameEmbeddingPlugin extends Plugin_Abstract
 {
-	public function dispatchLoopShutdown(Request_Abstract $request, Response_Abstract $response) {
+	public function dispatchLoopShutdown(Request_Abstract $request, Response_Abstract $response)
+    {
         if ($response instanceof Http) {
             $response->setHeader('X-Frame-Options', 'DENY');
         }

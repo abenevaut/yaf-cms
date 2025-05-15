@@ -1,18 +1,15 @@
 <?php
 
-use App\Facades\Log;
 use App\Infrastructure\ControllerAbstract;
 
 class IndexController extends ControllerAbstract
 {
     public function indexAction()
     {
-        $this->getView()->content = 'Hello World';
+        $this->getView()->assign('content', 'Hello World');
 
-        Log::debug("View content", ['content' => $this->getView()->content]);
+        throw new \App\Exceptions\Http\AccessDeniedHttpException();
 
-        $this->getResponse()->setHeader("Status", 200);
-
-        return true;
+        return $this->render('index');
     }
 }

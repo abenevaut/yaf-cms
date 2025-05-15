@@ -27,4 +27,4 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && php -r "unlink('composer-setup.php');"
 
 COPY --chown=nobody rootfs/ /
-RUN mv /usr/local/etc/php/conf.d/docker-php-ext-yaf.ini.testing /usr/local/etc/php/conf.d/docker-php-ext-yaf.ini
+RUN mv /usr/local/etc/php/conf.d/docker-php-ext-yaf.ini.local /usr/local/etc/php/conf.d/docker-php-ext-yaf.ini
