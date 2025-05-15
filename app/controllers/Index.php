@@ -8,8 +8,6 @@ class IndexController extends ControllerAbstract
     {
         $this->getView()->assign('content', 'Hello World');
 
-        throw new \App\Exceptions\Http\AccessDeniedHttpException();
-
         return $this->render('index');
     }
 }
