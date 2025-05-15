@@ -64,8 +64,7 @@ class ErrorController extends ControllerAbstract
 
     private function isJsonRequest(): bool
     {
-        return $this->getRequest()->isXmlHttpRequest();
-    //      || 'application/json' === $this->getRequest()->getHeaders()['Content-Type']
-    //!\ here the request was reset to redirect to error controller
+        return $this->getRequest()->isXmlHttpRequest()
+          || 'application/json' === $_SERVER['CONTENT_TYPE'];
     }
 }
