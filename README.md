@@ -60,3 +60,10 @@ php artisan about
 ```
 XDEBUG_MODE=coverage vendor/bin/phpunit
 ```
+
+## Build
+
+```bash
+docker tag abenevaut/yaf-cms:test ghcr.io/abenevaut/yaf-cms:latest-php83-testing
+docker publish ghcr.io/abenevaut/yaf-cms:latest-php83-testing
+```
