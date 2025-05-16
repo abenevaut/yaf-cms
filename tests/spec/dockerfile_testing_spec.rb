@@ -2,16 +2,22 @@
 
 require 'docker'
 require 'serverspec'
+require 'json'
 
-describe 'Dockerfile.ci' do
+describe 'Dockerfile.testing' do
   before(:all) do # rubocop:disable RSpec/BeforeAfterAll
     ::Docker.options[:read_timeout] = 3000
+
+    build_args = JSON.generate(
+      COMPOSER_HASH: 'dac665fdc30fdd8ec78b38b9800061b4150413ff2e3b6f88543c636f7cd84f6db9189d43a81e5503cda447da73c7e5b6'
+    )
 
     image = ::Docker::Image.build_from_dir(
       '.',
       'dockerfile' => 'Dockerfile.testing',
       't' => 'abenevaut/yaf-cms:rspec',
-      'cache-from' => 'abenevaut/yaf-cms:latest-php83-testing'
+      'cache-from' => 'abenevaut/yaf-cms:latest-php83-testing',
+      'buildargs': build_args
     )
 
     set :os, family: :alpine
