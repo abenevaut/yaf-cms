@@ -18,7 +18,7 @@ RUN pecl channel-update pecl.php.net \
     && pecl install yaf xdebug \
     && rm -rf /tmp/pear
 
-RUN docker-php-ext-enable yaf
+RUN docker-php-ext-enable yaf xdebug
 
 ARG COMPOSER_HASH
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
