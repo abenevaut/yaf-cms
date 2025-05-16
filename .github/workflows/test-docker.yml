@@ -13,7 +13,7 @@ on:
       - Gemfile
       - .Gemfile.lock
   pull_request:
-    branches: [ php83 ]
+    branches: [ main ]
     paths:
       - Dockerfile.yaf
       - Dockerfile.ci
