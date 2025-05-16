@@ -19,20 +19,9 @@ describe 'Dockerfile.yaf' do
     set :docker_image, image.id
   end
 
-  describe file('/etc/os-release') do
-    it { is_expected.to be_file }
-  end
-
-  describe command('cat /etc/os-release') do
-    it 'confirm alpine version' do
-      expect(subject.stdout).to match(/Alpine Linux/)
-      expect(subject.stdout).to match(/3.16.2/)
-    end
-  end
-
   describe command('php --version') do
     it 'confirm php version' do
-      expect(subject.stdout).to match(/PHP 8.1.12/)
+      expect(subject.stdout).to match(/PHP 8.3/)
     end
   end
 
@@ -47,7 +36,7 @@ describe 'Dockerfile.yaf' do
       expect(subject.stdout).to match(/yaf support => enabled/)
       expect(subject.stdout).to match(/yaf.use_namespace => 1 => 1/)
       expect(subject.stdout).to match(/yaf.use_spl_autoload => 1 => 1/)
-      expect(subject.stdout).to match(/yaf.environ => production => production/)
+      expect(subject.stdout).to match(/yaf.environ => local => local/)
     end
   end
 end

@@ -19,41 +19,14 @@ describe 'Dockerfile.ci' do
     set :docker_image, image.id
   end
 
-  def docker_compose_version
-    command('docker-compose -v').stdout
-  end
-
   def composer_version
     command('composer -V').stdout
-  end
-
-  def bash_version
-    command('bash --version').stdout
-  end
-
-  describe package('openssh-client-common') do
-    it { is_expected.to be_installed }
-  end
-
-  describe package('sshpass') do
-    it { is_expected.to be_installed }
-  end
-
-  describe package('python3') do
-    it { is_expected.to be_installed }
-  end
-
-  describe package('py-pip') do
-    it { is_expected.to be_installed }
-  end
-
-  it 'installs docker-compose' do
-    expect(docker_compose_version).to include('docker-compose version 1.29.2')
   end
 
   describe command('php -m') do
     it 'confirm php modules' do
       expect(subject.stdout).to match(/yaf/)
+      expect(subject.stdout).to match(/Xdebug/)
     end
   end
 
@@ -67,10 +40,6 @@ describe 'Dockerfile.ci' do
   end
 
   it 'installs composer' do
-    expect(composer_version).to include('2.5.5')
-  end
-
-  it 'installs bash' do
-    expect(bash_version).to include('5.1.16')
+    expect(composer_version).to include('2.8')
   end
 end

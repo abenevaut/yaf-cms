@@ -57,6 +57,7 @@ jobs:
         with:
           ruby-version: 3.2
 
+      # docker run -it -v .:/var/task -v /var/run/docker.sock:/var/run/docker.sock:ro -w /var/task ruby:3.2 /bin/sh
       - name: Run tests
         run: |
           gem install bundler
