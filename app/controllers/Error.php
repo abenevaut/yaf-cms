@@ -41,6 +41,7 @@ class ErrorController extends ControllerAbstract
         }
 
         $this->getResponse()->setHeader('Status', $status);
+        $this->setViewpath(PROJECT_PATH .'/views'); // in case we catch error from module
 
         return $exception->render($this->getView(), $this->isJsonRequest());
     }
