@@ -3,16 +3,16 @@
 namespace App\Providers;
 
 use App\Infrastructure\ProviderAbstract;
-use App\Services\Session;
+use App\Services\SessionService;
 
 final class SessionProvider extends ProviderAbstract
 {
     public function boot(): self
     {
-        $config = $this->dispatcher->getApplication()->getConfig();
+        $config = $this->getApplicationConfig();
 
-        $this->singleton(Session::class, static function () use ($config) {
-            return new Session(
+        $this->singleton(SessionService::class, static function () use ($config) {
+            return new SessionService(
                 $config->get('session')->get('name'),
                 $config->get('session')->get('domain'),
                 $config->get('application')->get('baseUri'),

@@ -1,4 +1,4 @@
-require:
+plugins:
   - rubocop-rspec
 
 RSpec/DescribeClass:
@@ -11,9 +11,6 @@ RSpec/RepeatedExampleGroupBody:
   Exclude:
     - 'tests/spec/*.rb'
 RSpec/NamedSubject:
-  Exclude:
-    - 'tests/spec/*.rb'
-Metrics/LineLength:
   Exclude:
     - 'tests/spec/*.rb'
 Metrics/BlockLength:

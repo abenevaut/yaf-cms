@@ -10,6 +10,7 @@
       <sourceFolder url="file://$MODULE_DIR$/app/Infrastructure" isTestSource="true" packagePrefix="App\Infrastructure\" />
       <sourceFolder url="file://$MODULE_DIR$/app/Providers" isTestSource="true" packagePrefix="App\Providers\" />
       <sourceFolder url="file://$MODULE_DIR$/app/Services" isTestSource="true" packagePrefix="App\Services\" />
+      <sourceFolder url="file://$MODULE_DIR$/app/Exceptions" isTestSource="true" packagePrefix="App\Exceptions\" />
       <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/.phpunit.cache" />
       <excludeFolder url="file://$MODULE_DIR$/coverage" />
@@ -61,13 +62,6 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/psr/container" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/psr/simple-cache" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/voku/portable-ascii" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/bundle/bin" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/bundle/build_info" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/bundle/cache" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/bundle/doc" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/bundle/extensions" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/bundle/gems" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/bundle/specifications" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/illuminate/bus" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/illuminate/events" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/illuminate/pipeline" />

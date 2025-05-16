@@ -8,16 +8,29 @@ final class Environment
 {
     public static function isProduction(): bool
     {
-        return static::isEnvironment('production');
+        return self::isEnvironment(__FUNCTION__);
     }
 
     public static function isNotProduction(): bool
     {
-        return !static::isProduction();
+        return !self::isProduction();
     }
 
-    public static function isEnvironment(string $environment): bool
+    public static function isLocal(): bool
     {
-        return Application::getInstance()->environ() === $environment;
+        return self::isEnvironment(__FUNCTION__);
+    }
+
+    public static function isTesting(): bool
+    {
+        return self::isEnvironment(__FUNCTION__);
+    }
+
+    private static function isEnvironment(string $environment): bool
+    {
+        $environment = strtolower($environment);
+        $environment = str_replace('is', '', $environment);
+
+        return Application::app()->environ() === $environment;
     }
 }

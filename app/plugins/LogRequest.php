@@ -7,7 +7,7 @@ use Yaf\Response_Abstract;
 
 class LogRequestPlugin extends Plugin_Abstract
 {
-    public function dispatchLoopStartup(Request_Abstract $request, Response_Abstract $response)
+    public function routerShutdown(Request_Abstract $request, Response_Abstract $response)
     {
         Log::pushProcessor(function ($record) use ($request) {
             $record->extra['request'] = [

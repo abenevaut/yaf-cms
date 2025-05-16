@@ -1,6 +1,5 @@
 <?php
 
-use App\Services\Environment;
 use Yaf\Bootstrap_Abstract;
 use Yaf\Dispatcher;
 use Yaf\Loader;
@@ -21,28 +20,6 @@ final class Bootstrap extends Bootstrap_Abstract
             ->get('timezone');
 
         date_default_timezone_set($timezone);
-    }
-
-    public function _initExceptionsHandler(Dispatcher $dispatcher)
-    {
-        $whoops = new \Whoops\Run();
-        $whoops->writeToOutput(Environment::isNotProduction());
-
-        if ($dispatcher->getRequest()->isCli() && $dispatcher->getRequest()->getModuleName() === 'Artisan') {
-            $whoops->pushHandler(new \NunoMaduro\Collision\Handler());
-        }
-        elseif ($dispatcher->getRequest()->isXmlHttpRequest()) {
-            $whoops->pushHandler(new \Whoops\Handler\JsonResponseHandler());
-        }
-        else {
-            $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
-        }
-
-        $whoops->pushHandler(new \Whoops\Handler\CallbackHandler(function ($exception) {
-            \App\Facades\Log::emergency($exception);
-        }));
-
-        $whoops->register();
     }
 
     public function _initServices(Dispatcher $dispatcher)

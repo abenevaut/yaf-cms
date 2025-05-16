@@ -1,6 +1,6 @@
 #
-# docker build . --build-arg COMPOSER_HASH=dac665fdc30fdd8ec78b38b9800061b4150413ff2e3b6f88543c636f7cd84f6db9189d43a81e5503cda447da73c7e5b6 --tag abenevaut/yaf-cms:test
-# docker run -p 8080:8080 -v .:/var/task abenevaut/yaf-cms:local
+# docker build . -f Dockerfile.testing --build-arg COMPOSER_HASH=dac665fdc30fdd8ec78b38b9800061b4150413ff2e3b6f88543c636f7cd84f6db9189d43a81e5503cda447da73c7e5b6 --tag abenevaut/yaf-cms:test
+# docker run -p 8080:8080 -v .:/var/task abenevaut/yaf-cms:test
 #
 
 FROM ghcr.io/abenevaut/vapor-nginx:php83
@@ -15,10 +15,10 @@ LABEL org.opencontainers.image.licenses="MIT"
 LABEL org.opencontainers.image.documentation="https://github.com/abenevaut/yaf-cms/README.md"
 
 RUN pecl channel-update pecl.php.net \
-    && pecl install yaf \
+    && pecl install yaf xdebug \
     && rm -rf /tmp/pear
 
-RUN docker-php-ext-enable yaf
+RUN docker-php-ext-enable yaf xdebug
 
 ARG COMPOSER_HASH
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
@@ -27,4 +27,4 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && php -r "unlink('composer-setup.php');"
 
 COPY --chown=nobody rootfs/ /
-RUN mv /usr/local/etc/php/conf.d/docker-php-ext-yaf.ini.local /usr/local/etc/php/conf.d/docker-php-ext-yaf.ini
+RUN mv /usr/local/etc/php/conf.d/docker-php-ext-yaf.ini.testing /usr/local/etc/php/conf.d/docker-php-ext-yaf.ini

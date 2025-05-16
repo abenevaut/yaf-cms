@@ -10,7 +10,7 @@ services:
   # docker-compose build www
   #
   www:
-    image: abenevaut/yaf-cms:latest
+    image: abenevaut/yaf-cms:local
     restart: unless-stopped
     build:
       context: .

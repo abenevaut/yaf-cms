@@ -2,9 +2,9 @@ name: test
 
 on:
   push:
-    branches: [ php83 ]
+    branches: [ main ]
   pull_request:
-    branches: [ php83 ]
+    branches: [ main ]
 
 env:
   php_version: 83
@@ -14,7 +14,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     container:
-      image: abenevaut/yafarel-ci:latest-php83
+      image: ghcr.io/abenevaut/yaf-cms:latest-php${{ env.php_version }}-testing
       volumes:
         - ${{ github.workspace }}/vendor:/composer/vendor
     concurrency:
@@ -32,4 +32,4 @@ jobs:
           cp app.ini.example app.ini
           composer validate --strict
           composer install --optimize-autoloader --no-interaction --prefer-dist
-          vendor/bin/phpunit
+          XDEBUG_MODE=coverage vendor/bin/phpunit

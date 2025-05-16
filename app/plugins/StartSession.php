@@ -8,7 +8,7 @@ use Yaf\Response_Abstract;
 
 class StartSessionPlugin extends Plugin_Abstract
 {
-    public function routerShutdown(Request_Abstract $request, Response_Abstract $response)
+    public function dispatchLoopStartup(Request_Abstract $request, Response_Abstract $response)
     {
         if (!$request->isCli() && $request->getModuleName() !== 'Artisan') {
             Session::start();

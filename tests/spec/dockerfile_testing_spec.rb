@@ -2,16 +2,22 @@
 
 require 'docker'
 require 'serverspec'
+require 'json'
 
-describe 'Dockerfile.yaf' do
+describe 'Dockerfile.testing' do
   before(:all) do # rubocop:disable RSpec/BeforeAfterAll
     ::Docker.options[:read_timeout] = 3000
 
+    build_args = JSON.generate(
+      COMPOSER_HASH: 'dac665fdc30fdd8ec78b38b9800061b4150413ff2e3b6f88543c636f7cd84f6db9189d43a81e5503cda447da73c7e5b6'
+    )
+
     image = ::Docker::Image.build_from_dir(
       '.',
-      'dockerfile' => 'Dockerfile.yaf',
-      't' => 'abenevaut/yafarel:rspec',
-      'cache-from' => 'abenevaut/yafarel:latest-php81'
+      'dockerfile' => 'Dockerfile.testing',
+      't' => 'abenevaut/yaf-cms:rspec',
+      'cache-from' => 'abenevaut/yaf-cms:latest-php83-testing',
+      'buildargs': build_args
     )
 
     set :os, family: :alpine
@@ -19,26 +25,14 @@ describe 'Dockerfile.yaf' do
     set :docker_image, image.id
   end
 
-  describe file('/etc/os-release') do
-    it { is_expected.to be_file }
-  end
-
-  describe command('cat /etc/os-release') do
-    it 'confirm alpine version' do
-      expect(subject.stdout).to match(/Alpine Linux/)
-      expect(subject.stdout).to match(/3.16.2/)
-    end
-  end
-
-  describe command('php --version') do
-    it 'confirm php version' do
-      expect(subject.stdout).to match(/PHP 8.1.12/)
-    end
+  def composer_version
+    command('composer -V').stdout
   end
 
   describe command('php -m') do
     it 'confirm php modules' do
       expect(subject.stdout).to match(/yaf/)
+      expect(subject.stdout).to match(/Xdebug/)
     end
   end
 
@@ -47,7 +41,11 @@ describe 'Dockerfile.yaf' do
       expect(subject.stdout).to match(/yaf support => enabled/)
       expect(subject.stdout).to match(/yaf.use_namespace => 1 => 1/)
       expect(subject.stdout).to match(/yaf.use_spl_autoload => 1 => 1/)
-      expect(subject.stdout).to match(/yaf.environ => production => production/)
+      expect(subject.stdout).to match(/yaf.environ => testing => testing/)
     end
+  end
+
+  it 'installs composer' do
+    expect(composer_version).to include('2.8')
   end
 end

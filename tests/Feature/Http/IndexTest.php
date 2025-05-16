@@ -9,10 +9,8 @@ class IndexTest extends TestCase
 {
     public function testToDisplayIndex()
     {
-        $response = $this->get('/');
+        $this->get('/');
 
         $this->assertSame('Hello World', $this->getView()->content);
-
-        var_dump($response);
     }
 }

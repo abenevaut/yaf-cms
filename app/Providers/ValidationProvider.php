@@ -8,7 +8,7 @@ use Illuminate\Validation\Factory;
 
 final class ValidationProvider extends ProviderAbstract
 {
-    public function boot(\Yaf_Dispatcher $dispatcher): self
+    public function boot(): self
     {
         $this->singleton(Factory::class, static function () {
             $validationTranslations = require __DIR__ . '/../../vendor/illuminate/translation/lang/en/validation.php';

@@ -12,7 +12,7 @@ final class  LoggerProvider extends ProviderAbstract
 {
     public function boot(): self
     {
-        $config = $this->dispatcher->getApplication()->getConfig();
+        $config = $this->getApplicationConfig();
 
         $this->singleton(Logger::class, static function () use ($config) {
             $hit = uniqid();
