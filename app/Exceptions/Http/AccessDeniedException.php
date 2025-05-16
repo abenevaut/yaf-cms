@@ -2,7 +2,7 @@
 
 namespace App\Exceptions\Http;
 
-class AccessDeniedHttpException extends HttpException
+class AccessDeniedException extends HttpException
 {
     protected $logLevel = 'notice';
 

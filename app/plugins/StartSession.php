@@ -18,6 +18,7 @@ class StartSessionPlugin extends Plugin_Abstract
 
                 return $record;
             });
+            Log::info('StartSessionPlugin: Session started');
         }
     }
 }

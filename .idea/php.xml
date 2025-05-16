@@ -74,6 +74,13 @@
       <path value="$PROJECT_DIR$/vendor/phar-io/manifest" />
       <path value="$PROJECT_DIR$/vendor/myclabs/deep-copy" />
       <path value="$PROJECT_DIR$/vendor/bundle/ruby" />
+      <path value="$PROJECT_DIR$/vendor/bundle/gems" />
+      <path value="$PROJECT_DIR$/vendor/bundle/doc" />
+      <path value="$PROJECT_DIR$/vendor/bundle/build_info" />
+      <path value="$PROJECT_DIR$/vendor/bundle/extensions" />
+      <path value="$PROJECT_DIR$/vendor/bundle/bin" />
+      <path value="$PROJECT_DIR$/vendor/bundle/cache" />
+      <path value="$PROJECT_DIR$/vendor/bundle/specifications" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.1" />
