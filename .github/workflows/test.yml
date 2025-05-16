@@ -6,15 +6,12 @@ on:
   pull_request:
     branches: [ main ]
 
-env:
-  php_version: 83
-
 jobs:
 
   test:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/abenevaut/yaf-cms:latest-php${{ env.php_version }}-testing
+      image: ghcr.io/abenevaut/yaf-cms:latest-php83-testing
       volumes:
         - ${{ github.workspace }}/vendor:/composer/vendor
     concurrency:
