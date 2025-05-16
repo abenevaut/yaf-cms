@@ -15,7 +15,7 @@ LABEL org.opencontainers.image.licenses="MIT"
 LABEL org.opencontainers.image.documentation="https://github.com/abenevaut/yaf-cms/README.md"
 
 RUN pecl channel-update pecl.php.net \
-    && pecl install yaf \
+    && pecl install yaf xdebug \
     && rm -rf /tmp/pear
 
 RUN docker-php-ext-enable yaf

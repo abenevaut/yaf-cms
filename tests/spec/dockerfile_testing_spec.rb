@@ -11,7 +11,7 @@ describe 'Dockerfile.ci' do
       '.',
       'dockerfile' => 'Dockerfile.testing',
       't' => 'abenevaut/yaf-cms:rspec',
-      'cache-from' => 'abenevaut/yaf-cms:php83'
+      'cache-from' => 'abenevaut/yaf-cms:latest-php83-testing'
     )
 
     set :os, family: :alpine
