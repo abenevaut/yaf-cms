@@ -1,6 +1,6 @@
 #
-# docker build . --tag abenevaut/yaf-cms:local
-# docker run -p 8080:8080 -v .:/var/task abenevaut/yaf-cms:local
+# docker build . -f Dockerfile.testing --tag abenevaut/yaf-cms:test
+# docker run -p 8080:8080 -v .:/var/task abenevaut/yaf-cms:test
 #
 
 FROM ghcr.io/abenevaut/vapor-nginx:php83
@@ -27,4 +27,4 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && php -r "unlink('composer-setup.php');"
 
 COPY --chown=nobody rootfs/ /
-RUN mv /usr/local/etc/php/conf.d/docker-php-ext-yaf.ini.local /usr/local/etc/php/conf.d/docker-php-ext-yaf.ini
+RUN mv /usr/local/etc/php/conf.d/docker-php-ext-yaf.ini.testing /usr/local/etc/php/conf.d/docker-php-ext-yaf.ini

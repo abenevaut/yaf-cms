@@ -10,7 +10,7 @@
       <sourceFolder url="file://$MODULE_DIR$/app/Infrastructure" isTestSource="true" packagePrefix="App\Infrastructure\" />
       <sourceFolder url="file://$MODULE_DIR$/app/Providers" isTestSource="true" packagePrefix="App\Providers\" />
       <sourceFolder url="file://$MODULE_DIR$/app/Services" isTestSource="true" packagePrefix="App\Services\" />
-      <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/app/Exceptions" isTestSource="true" packagePrefix="App\Exceptions\" />
       <excludeFolder url="file://$MODULE_DIR$/.phpunit.cache" />
       <excludeFolder url="file://$MODULE_DIR$/coverage" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/composer" />

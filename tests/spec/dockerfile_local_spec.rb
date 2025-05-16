@@ -9,9 +9,9 @@ describe 'Dockerfile.yaf' do
 
     image = ::Docker::Image.build_from_dir(
       '.',
-      'dockerfile' => 'Dockerfile.yaf',
-      't' => 'abenevaut/yafarel:rspec',
-      'cache-from' => 'abenevaut/yafarel:latest-php81'
+      'dockerfile' => 'Dockerfile',
+      't' => 'abenevaut/yaf-cms:rspec',
+      'cache-from' => 'abenevaut/yaf-cms:php83'
     )
 
     set :os, family: :alpine

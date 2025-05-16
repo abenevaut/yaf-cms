@@ -1,0 +1,19 @@
+#
+# docker build . -f Dockerfile.production --tag abenevaut/yaf-cms:latest
+# docker run -p 8080:8080 abenevaut/yaf-cms:latest
+#
+
+FROM ghcr.io/abenevaut/vapor-nginx:php83
+
+LABEL maintainer="<Your name & email>"
+
+RUN pecl channel-update pecl.php.net \
+    && pecl install yaf \
+    && rm -rf /tmp/pear
+
+RUN docker-php-ext-enable yaf
+
+COPY --chown=nobody rootfs/ /
+RUN mv rootfs/usr/local/etc/php/conf.d/docker-php-ext-yaf.ini.production /usr/local/etc/php/conf.d/docker-php-ext-yaf.ini
+
+COPY . /var/task
