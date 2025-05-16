@@ -7,6 +7,8 @@ use Yaf\Controller_Abstract;
 
 abstract class ControllerAbstract extends Controller_Abstract
 {
+    const WITHOUT_VIEW = false;
+
     public function asJson(array $data = [], int $status = 200): bool
     {
         $jsonData = json_encode($data, JSON_THROW_ON_ERROR);
@@ -15,7 +17,7 @@ abstract class ControllerAbstract extends Controller_Abstract
         $this->getResponse()->clearbody();
         $this->getResponse()->setBody($jsonData);
 
-        return false;
+        return ControllerAbstract::WITHOUT_VIEW;
     }
 
     public function redirect(string $url = '/'): bool
@@ -23,7 +25,7 @@ abstract class ControllerAbstract extends Controller_Abstract
         if (filter_var($url, FILTER_VALIDATE_URL)) {
             parent::redirect($url);
 
-            return false;
+            return ControllerAbstract::WITHOUT_VIEW;
         }
 
         $basUri = Application::app()->getConfig()->get('application.baseUri');
@@ -32,6 +34,6 @@ abstract class ControllerAbstract extends Controller_Abstract
 
         parent::redirect($uri);
 
-        return false;
+        return ControllerAbstract::WITHOUT_VIEW;
     }
 }

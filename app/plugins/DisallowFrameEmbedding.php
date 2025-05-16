@@ -11,6 +11,7 @@ class DisallowFrameEmbeddingPlugin extends Plugin_Abstract
     {
         if ($response instanceof Http) {
             $response->setHeader('X-Frame-Options', 'DENY');
+            \App\Facades\Log::debug('DisallowFrameEmbeddingPlugin: X-Frame-Options header set to DENY');
         }
 	}
 }

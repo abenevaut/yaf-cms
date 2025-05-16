@@ -2,7 +2,7 @@
 
 namespace App\Exceptions\Http;
 
-class MethodNotAllowedHttpException extends HttpException
+class MethodNotAllowedException extends HttpException
 {
     protected $logLevel = 'info';
 

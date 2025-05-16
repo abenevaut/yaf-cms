@@ -2,7 +2,7 @@
 
 namespace App\Exceptions\Http;
 
-class BadRequestHttpException extends HttpException
+class BadRequestException extends HttpException
 {
     protected $logLevel = 'info';
 

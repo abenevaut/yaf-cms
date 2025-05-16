@@ -2,7 +2,7 @@
 
 namespace App\Exceptions\Http;
 
-class NotFoundHttpException extends HttpException
+class NotFoundException extends HttpException
 {
     protected $logLevel = 'info';
 

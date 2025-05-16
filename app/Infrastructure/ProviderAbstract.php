@@ -2,6 +2,8 @@
 
 namespace App\Infrastructure;
 
+use App\Exceptions\ServiceAlreadyRegisteredException;
+use Yaf\Config\Ini as ConfigIni;
 use Yaf\Dispatcher;
 use Yaf\Registry;
 
@@ -11,7 +13,7 @@ abstract class ProviderAbstract
 
     abstract public function boot(): self;
 
-    protected function getApplicationConfig(): \Yaf\Config\Ini
+    protected function getApplicationConfig(): ConfigIni
     {
         return $this->dispatcher->getApplication()->getConfig();
     }
@@ -24,12 +26,10 @@ abstract class ProviderAbstract
         return $this
             ->isServiceRegistered($serviceName)
             // Register service as an instance
-            ->registerService($serviceName, call_user_func($serviceInstance))
-        ;
+            ->registerService($serviceName, call_user_func($serviceInstance));
     }
 
     /**
-     * @throws ServiceAlreadyInstantiatedException
      * @throws ServiceAlreadyRegisteredException
      */
     protected function singleton(string $serviceName, \Closure $serviceInstance): self
@@ -37,8 +37,7 @@ abstract class ProviderAbstract
         return $this
             ->isServiceRegistered($serviceName)
             // Register service as a \Closure to be instantiated later
-            ->registerService($serviceName, $serviceInstance)
-        ;
+            ->registerService($serviceName, $serviceInstance);
     }
 
     /**
