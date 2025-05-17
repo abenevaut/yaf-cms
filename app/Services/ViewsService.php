@@ -10,6 +10,7 @@ final class ViewsService
     public function __construct(
         protected string $viewsDirectory,
         protected string $layout = 'layout',
+        protected array $layoutData = [],
     ) {}
 
     public function getViewsDirectory(): string
@@ -17,13 +18,27 @@ final class ViewsService
         return $this->viewsDirectory;
     }
 
+    public function setLayout(string $layout): self
+    {
+        $this->layout = $layout;
+
+        return $this;
+    }
+
+    public function setTitle(string $title): self
+    {
+        $this->layoutData['title'] = $title;
+
+        return $this;
+    }
+
     public function useLayout(Response_Abstract $response): void
     {
-        $body = $response->getBody();
+        $this->layoutData['content'] = $response->getBody();
         $response->clearBody();
 
         $layout = new ViewSimple($this->getViewsDirectory());
-        $layout->assign('content', $body);
+        $layout->assign('layoutData', $this->layoutData);
 
         $renderedHtml = $layout->render("{$this->layout}.phtml");
 
