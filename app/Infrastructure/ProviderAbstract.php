@@ -3,7 +3,7 @@
 namespace App\Infrastructure;
 
 use App\Exceptions\ServiceAlreadyRegisteredException;
-use App\Services\CollectionsService;
+use Illuminate\Support\Collection;
 use Yaf\Dispatcher;
 use Yaf\Registry;
 
@@ -13,7 +13,7 @@ abstract class ProviderAbstract
 
     abstract public function boot(): self;
 
-    protected function getApplicationConfig(): CollectionsAbstract
+    protected function getApplicationConfig(): Collection
     {
         $appConfig = $this
             ->dispatcher
@@ -21,7 +21,7 @@ abstract class ProviderAbstract
             ->getConfig()
             ->toArray();
 
-        return new CollectionsService($appConfig, []);
+        return new Collection($appConfig, []);
     }
 
     /**
