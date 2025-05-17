@@ -20,7 +20,7 @@ final class DatabaseProvider extends ProviderAbstract
         $this->singleton(EloquentCapsule::class, static function () use ($config) {
             $capsule = new EloquentCapsule();
 
-            foreach ($config->get('databases') as $dbName => $dbConfig) {
+            foreach ($config['databases'] as $dbName => $dbConfig) {
                 $capsule->addConnection($dbConfig, $dbName);
             }
 

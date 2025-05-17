@@ -21,6 +21,8 @@ $app->getDispatcher()->autoRender(false);
 $app->getDispatcher()->flushInstantly(false);
 $app->getDispatcher()->returnResponse(false);
 $app->getDispatcher()->disableView();
+$app->getDispatcher()->throwException(true);
+$app->getDispatcher()->catchException(true);
 $app
     ->bootstrap()
     ->getDispatcher()

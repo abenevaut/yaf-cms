@@ -16,7 +16,7 @@ final class  LoggerProvider extends ProviderAbstract
 
         $this->bind(Logger::class, static function () use ($config) {
             $hit = uniqid();
-            $timezone = $config->get('application')['timezone'];
+            $timezone = $config['application']['timezone'];
             $logger = new Logger('default');
             $handler = new RotatingFileHandler(
                 $config['logger']['directory'],
@@ -37,8 +37,7 @@ final class  LoggerProvider extends ProviderAbstract
                     $record->extra['hit'] = $hit;
 
                     return $record;
-                })
-            ;
+                });
         });
 
         return $this;
