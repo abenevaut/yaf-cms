@@ -14,14 +14,14 @@ final class  LoggerProvider extends ProviderAbstract
     {
         $config = $this->getApplicationConfig();
 
-        $this->singleton(Logger::class, static function () use ($config) {
+        $this->bind(Logger::class, static function () use ($config) {
             $hit = uniqid();
-            $timezone = $config->get('application')->get('timezone');
+            $timezone = $config->get('application')['timezone'];
             $logger = new Logger('default');
             $handler = new RotatingFileHandler(
-                $config->get('logger')->get('directory'),
-                $config->get('logger')->get('maxFiles'),
-                Level::fromName($config->get('logger')->get('level'))
+                $config['logger']['directory'],
+                $config['logger']['maxFiles'],
+                Level::fromName($config['logger']['level'])
             );
             $formatter = new LineFormatter(
                 "[%datetime%] %channel%.%level_name%: %message% %context% %extra%\n",

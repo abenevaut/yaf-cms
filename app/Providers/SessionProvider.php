@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use App\Infrastructure\ProviderAbstract;
-use App\Services\SessionService;
+use App\Services\SessionsService;
 
 final class SessionProvider extends ProviderAbstract
 {
@@ -11,14 +11,14 @@ final class SessionProvider extends ProviderAbstract
     {
         $config = $this->getApplicationConfig();
 
-        $this->singleton(SessionService::class, static function () use ($config) {
-            return new SessionService(
-                $config->get('session')->get('name'),
-                $config->get('session')->get('domain'),
-                $config->get('application')->get('baseUri'),
-                $config->get('session')->get('lifetime'),
-                $config->get('session')->get('secure'),
-                $config->get('session')->get('sameSite')
+        $this->bind(SessionsService::class, static function () use ($config) {
+            return new SessionsService(
+                $config['session']['name'],
+                $config['session']['domain'],
+                $config['application']['baseUri'],
+                $config['session']['lifetime'],
+                $config['session']['secure'],
+                $config['session']['sameSite'],
             );
         });
 

@@ -2,7 +2,7 @@
 
 use App\Infrastructure\ControllerAbstract;
 use App\Exceptions\Http\HttpException;
-use App\Services\Environment;
+use App\Facades\Env;
 use NunoMaduro\Collision\Handler as ConsoleHandler;
 use Whoops\{
     Run,
@@ -15,7 +15,7 @@ class ErrorController extends ControllerAbstract
     public function errorAction(\Throwable $exception)
     {
         $handler = $this;
-        if (Environment::isNotProduction()) {
+        if (Env::isNotProduction()) {
             $handler = $this->getExceptionHandler();
         }
 
@@ -41,7 +41,7 @@ class ErrorController extends ControllerAbstract
         }
 
         $this->getResponse()->setHeader('Status', $status);
-        $this->setViewpath(PROJECT_PATH .'/views'); // in case we catch error from module
+        $this->setViewpath(\App\Facades\View::getViewsDirectory()); // in case we catch error from module
 
         return $exception->render($this->getView(), $this->isJsonRequest());
     }

@@ -3,7 +3,7 @@
 namespace App\Infrastructure;
 
 use App\Exceptions\ServiceAlreadyRegisteredException;
-use Yaf\Config\Ini as ConfigIni;
+use App\Services\CollectionsService;
 use Yaf\Dispatcher;
 use Yaf\Registry;
 
@@ -13,9 +13,15 @@ abstract class ProviderAbstract
 
     abstract public function boot(): self;
 
-    protected function getApplicationConfig(): ConfigIni
+    protected function getApplicationConfig(): CollectionsAbstract
     {
-        return $this->dispatcher->getApplication()->getConfig();
+        $appConfig = $this
+            ->dispatcher
+            ->getApplication()
+            ->getConfig()
+            ->toArray();
+
+        return new CollectionsService($appConfig, []);
     }
 
     /**

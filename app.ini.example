@@ -16,22 +16,20 @@ session.sameSite = "strict"
 
 logger.directory = PROJECT_PATH "/logs/log.log"
 ; The maximal amount of files to keep (0 means unlimited)
-logger.maxFiles = 5
+logger.maxFiles = 0
 ; debug, info, notice, warning, error, critical, alert, emergency
 logger.level = notice
 
-database.default.driver = "sqlite"
-database.default.database = PROJECT_PATH . '/database.sqlite'
+databases.default.driver = "sqlite"
+databases.default.database = PROJECT_PATH . '/database.sqlite'
 
-[local:yaf]
+[local: production]
+logger.maxFiles = 5
 logger.level = debug
 
-[production:yaf]
-logger.maxFiles = 0
-
-[testing:yaf]
+[testing: production]
 logger.maxFiles = 1
 logger.level = debug
 
-database.default.driver = "sqlite"
-database.default.database = PROJECT_PATH . '/tests/database.sqlite'
+databases.default.driver = "sqlite"
+databases.default.database = PROJECT_PATH . '/tests/database.sqlite'

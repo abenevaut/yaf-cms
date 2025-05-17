@@ -2,6 +2,7 @@
 
 define('PROJECT_PATH', dirname(dirname(__FILE__)));
 
-(new \Yaf\Application(PROJECT_PATH . '/app.ini'))
+$app = (new \Yaf\Application(PROJECT_PATH . '/app.ini'));
+$app
     ->bootstrap()
     ->run();
