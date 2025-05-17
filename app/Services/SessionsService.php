@@ -6,7 +6,7 @@ use Yaf\Application;
 use Yaf\Registry;
 use Yaf\Session as YafSession;
 
-final class SessionService
+final class SessionsService
 {
     public function __construct(
         protected string $name,
