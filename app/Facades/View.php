@@ -2,13 +2,13 @@
 
 namespace App\Facades;
 
-use App\Services\SessionsService;
+use App\Services\ViewsService;
 use App\Infrastructure\FacadeAbstract;
 
-final class Session extends FacadeAbstract
+final class View extends FacadeAbstract
 {
     protected static function getFacadeAccessor(): string
     {
-        return SessionsService::class;
+        return ViewsService::class;
     }
 }

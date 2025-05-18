@@ -30,3 +30,4 @@ jobs:
           composer validate --strict
           composer install --optimize-autoloader --no-interaction --prefer-dist
           XDEBUG_MODE=coverage vendor/bin/phpunit
+        # vendor/bin/infection

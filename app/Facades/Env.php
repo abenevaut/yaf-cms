@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Services;
+namespace App\Facades;
 
 use Yaf\Application;
 
-final class Environment
+final class Env
 {
     public static function isProduction(): bool
     {

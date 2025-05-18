@@ -22,7 +22,7 @@ return [
     /*
      * postDispatch
      */
-        //..
+    RenderViewPlugin::class,
     /*
      * dispatchLoopShutdown
      */
