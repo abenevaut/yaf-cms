@@ -1,0 +1,30 @@
+name: release-docker-testing
+
+on:
+  push:
+    tags:
+      - docker-testing-*
+
+env:
+  php_version: 83
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+      - uses: actions/checkout@v1
+
+      - name: Get current release tag
+        id: branch-name
+        run: echo ::set-output name=SOURCE_TAG::${GITHUB_REF#refs/tags/docker-testing-}
+
+      - name: Build docker image abenevaut/yaf-cms:latest-php${{ env.php_version }}-testing
+        run: |
+          docker login -u ${{ secrets.ABENEVAUT_DOCKER_USERNAME }} -p ${{ secrets.ABENEVAUT_DOCKER_PASSWORD }}
+          docker pull ghcr.io/abenevaut/yaf-cms:latest-php${{ env.php_version }}-testing
+          docker build . --file Dockerfile.testing --tag abenevaut/yaf-cms:testing --cache-from ghcr.io/abenevaut/yaf-cms:latest-php${{ env.php_version }}-testing
+          docker tag abenevaut/yaf-cms:testing ghcr.io/abenevaut/yaf-cms:latest-php${{ env.php_version }}-testing
+          docker tag abenevaut/yaf-cms:testing ghcr.io/abenevaut/yaf-cms:${{ steps.branch-name.outputs.SOURCE_TAG }}-php${{ env.php_version }}-testing
+          docker push --all-tags ghcr.io/abenevaut/yaf-cms
